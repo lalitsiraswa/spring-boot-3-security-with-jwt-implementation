@@ -17,16 +17,21 @@ import java.io.IOException;
 @RequiredArgsConstructor
 // '@RequiredArgsConstructor' It will create a constructor using any 'final' field in our class. 'eg: private final String name';
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+    private final JwtService jwtService;
+
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
         final String jwtToken;
+        final String userEmail;
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response); // It will pass the 'request' and the 'response' to the next filter.
             return;
         }
         jwtToken = authHeader.substring(7);
+//        TODO: Extract UserEmail from JwtAuthenticationToken;
+        userEmail = jwtService.extractUsername(jwtToken);
     }
 }
