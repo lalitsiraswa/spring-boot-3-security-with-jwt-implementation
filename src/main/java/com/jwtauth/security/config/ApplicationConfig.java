@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
-    @Autowired
     private final UserRepository userRepository;
 
     @Bean
