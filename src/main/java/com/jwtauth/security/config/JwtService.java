@@ -47,6 +47,19 @@ public class JwtService {
                 .compact(); // compact() will generate and return JwtToken String.
     }
 
+    public boolean isTokenValid(String jwtToken, UserDetails userDetails) {
+        final String username = extractUsername(jwtToken);
+        return (username.equals(userDetails.getUsername())) && !isTokenExpired(jwtToken);
+    }
+
+    private boolean isTokenExpired(String jwtToken) {
+        return extractExpiration(jwtToken).before(new Date());
+    }
+
+    private Date extractExpiration(String jwtToken) {
+        return extractClaim(jwtToken, Claims::getExpiration);
+    }
+
     private Claims extractAllClaims(String jwtToken) {
 //        The 'SigningKey' is used to create the 'signature part' of the JWT Token, which is used to verify that the
 //        sender of the JWT token is Who it claims to be and ensure that the message wasn't change along the way.
