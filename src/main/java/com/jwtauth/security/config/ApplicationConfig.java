@@ -10,6 +10,8 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @RequiredArgsConstructor
@@ -37,7 +39,7 @@ public class ApplicationConfig {
     //  also encode password.
     @Bean
     public AuthenticationProvider authenticationProvider() {
-//        DataAccessObjectAuthenticationProvider (DaoAuthenticationProvider)
+//      DataAccessObjectAuthenticationProvider (DaoAuthenticationProvider)
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
 //      We need to tell this AuthenticationProvider which UserDetails Service to use in oder to fetch information
 //      about our User.
@@ -45,6 +47,11 @@ public class ApplicationConfig {
 //      Need to specify which passwordEncoder we are using within our Application.
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }
