@@ -24,7 +24,7 @@ public class SecurityConfiguration {
         http
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.disable())
-                .authorizeHttpRequests(httpRequest -> httpRequest.requestMatchers("").permitAll()
+                .authorizeHttpRequests(httpRequest -> httpRequest.requestMatchers("/api/v1/auth/**").permitAll() // whitelisting the URLs
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
