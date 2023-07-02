@@ -69,7 +69,7 @@ public class JwtService {
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
-                .parseClaimsJwt(jwtToken)
+                .parseClaimsJws(jwtToken) // You should use parseClaimsJws() instead of parseClaimsJwt() to verify the JWS (JWT with signature).
                 .getBody();
 
     }
