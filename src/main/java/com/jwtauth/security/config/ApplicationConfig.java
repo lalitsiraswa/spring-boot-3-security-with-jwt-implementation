@@ -43,7 +43,7 @@ public class ApplicationConfig {
     public AuthenticationProvider authenticationProvider() {
 //      DataAccessObjectAuthenticationProvider (DaoAuthenticationProvider)
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-//      We need to tell this AuthenticationProvider which UserDetails Service to use in order to fetch information
+//      We need to tell this AuthenticationProvider, which UserDetails Service to use in order to fetch information
 //      about our User.
         authenticationProvider.setUserDetailsService(userDetailsService());
 //      Need to specify which passwordEncoder we are using within our Application.
